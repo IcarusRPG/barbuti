@@ -24,6 +24,8 @@ packages/
 - Painel frontend com telas mínimas (login, primeiro acesso, dashboard, agenda, agendamentos, clientes, barbeiros, funcionários, serviços, conversas, configurações, usuários e agendamento público).
 - Tokens de tema com RGB para personalização da marca.
 
+- `apps/web/public/index.html` criado como arquivo HTML de entrada estático/fallback com identidade visual da Barbutti.
+
 ## Stack
 
 - **Frontend:** Next.js + TypeScript + Tailwind
