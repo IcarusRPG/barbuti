@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Barbutti Barbearia</title>
+    <meta name="description" content="Plataforma Barbutti Barbearia" />
+    <style>
+      :root {
+        --brand-primary: rgb(224, 215, 195);
+        --brand-accent: rgb(149, 117, 62);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        background: radial-gradient(circle at top, rgba(224, 215, 195, 0.18), #050505 45%);
+        color: #fff;
+        display: grid;
+        place-items: center;
+      }
+      .card {
+        width: min(92vw, 420px);
+        background: rgba(18, 18, 20, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 24px;
+        padding: 24px;
+        text-align: center;
+      }
+      img {
+        width: 96px;
+        height: 96px;
+        border-radius: 999px;
+        object-fit: cover;
+      }
+      a {
+        display: inline-block;
+        margin-top: 16px;
+        background: var(--brand-accent);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        border-radius: 12px;
+        padding: 12px 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="card">
+      <img src="https://res.cloudinary.com/dk6okgt0a/image/upload/v1776542449/WhatsApp_Image_2026-04-17_at_21.09.05_sgbuvm.jpg" alt="Barbutti Barbearia" />
+      <h1>Barbutti Barbearia</h1>
+      <p>Arquivo HTML de entrada criado com identidade visual padrão da marca.</p>
+      <a href="http://localhost:3000/login">Acessar sistema</a>
+    </section>
+  </body>
+</html>
