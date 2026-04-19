@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Barbutti Barbearia • Portal de Acesso</title>
+    <meta name="description" content="Portal de entrada para todas as áreas do sistema Barbutti Barbearia" />
+    <style>
+      :root { --bg:#050505; --card:rgba(16,16,18,.92); --line:rgba(255,255,255,.14); --text:#fff; --muted:#b8b8b8; --primary:rgb(224,215,195); --accent:rgb(149,117,62); }
+      * { box-sizing: border-box; }
+      body { margin:0; min-height:100vh; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif; color:var(--text); background:radial-gradient(circle at top, rgba(224,215,195,.2), transparent 40%),radial-gradient(circle at bottom right, rgba(149,117,62,.25), transparent 30%),var(--bg); display:grid; place-items:center; padding:24px; }
+      .portal { width:min(98vw,1100px); border:1px solid var(--line); border-radius:28px; background:linear-gradient(180deg, rgba(20,20,22,.95), rgba(8,8,10,.95)); box-shadow:0 24px 70px rgba(0,0,0,.5); overflow:hidden; }
+      .header { display:grid; gap:20px; grid-template-columns:1fr; padding:30px; border-bottom:1px solid var(--line); }
+      @media (min-width:900px){ .header{ grid-template-columns:260px 1fr; align-items:center; padding:34px; } }
+      .logo { width:min(100%,240px); aspect-ratio:1; object-fit:cover; border-radius:24px; border:2px solid rgba(224,215,195,.35); box-shadow:0 10px 30px rgba(0,0,0,.45); }
+      h1 { margin:0; font-size:clamp(1.8rem,3.4vw,2.8rem); color:var(--primary); }
+      p { margin:10px 0 0; color:var(--muted); line-height:1.55; }
+      .base-url { margin-top:16px; display:flex; gap:10px; flex-wrap:wrap; }
+      input { flex:1; min-width:260px; background:#0f0f11; border:1px solid var(--line); border-radius:12px; color:#fff; padding:12px 14px; }
+      button { background:var(--accent); color:#fff; border:0; border-radius:12px; padding:12px 16px; font-weight:700; cursor:pointer; }
+      .quick-buttons { margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+      .quick-buttons button { background:#1b1b1f; border:1px solid var(--line); font-weight:600; }
+      .status { margin-top:12px; display:inline-flex; align-items:center; gap:8px; font-size:.9rem; color:#dcdcdc; background:#111216; border:1px solid #2f323a; padding:8px 10px; border-radius:999px; }
+      .status-dot { width:8px; height:8px; border-radius:999px; background:#1fd47a; box-shadow:0 0 0 3px rgba(31,212,122,.2); }
+      .links { padding:26px; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; }
+      .link-card { display:block; text-decoration:none; border:1px solid var(--line); border-radius:14px; padding:16px; color:#fff; background:var(--card); transition:transform .2s,border-color .2s; }
+      .link-card:hover { transform:translateY(-2px); border-color:rgba(224,215,195,.45); }
+      .link-title { font-weight:700; color:var(--primary); }
+      .link-path { margin-top:8px; font-size:.88rem; color:var(--muted); word-break:break-all; }
+      .hint { padding:0 26px 24px; font-size:.9rem; color:#d4d4d4; }
+      code { background:#121216; border:1px solid #2f2f34; border-radius:8px; padding:2px 6px; }
+    </style>
+  </head>
+  <body>
+    <section class="portal">
+      <header class="header">
+        <img class="logo" src="https://res.cloudinary.com/dk6okgt0a/image/upload/v1776542449/WhatsApp_Image_2026-04-17_at_21.09.05_sgbuvm.jpg" alt="Logo Barbutti Barbearia" />
+        <div>
+          <h1>Portal de Acesso • Barbutti Barbearia</h1>
+          <p>
+            Essa página pode ser servida por webhook do n8n. Para funcionar em qualquer ambiente,
+            defina a URL base do frontend e os links serão montados automaticamente.
+          </p>
+          <div class="base-url">
+            <input id="baseUrl" type="text" placeholder="Ex.: https://app.barbutti.com.br ou http://localhost:3000" />
+            <button id="saveBaseUrl" type="button">Salvar URL</button>
+          </div>
+          <div class="quick-buttons">
+            <button id="quickLocal" type="button">Usar localhost:3000</button>
+            <button id="quickCurrent" type="button">Usar domínio atual</button>
+          </div>
+          <div class="status"><span class="status-dot"></span><span id="statusText">Base ativa:</span></div>
+        </div>
+      </header>
+
+      <nav class="links" id="linksContainer"></nav>
+
+      <div class="hint">
+        Para uso com webhook n8n, envie na URL um parâmetro <code>?web_url=https://SEU-FRONTEND</code>
+        ou substitua no HTML o placeholder <code>__BARBUTTI_WEB_URL__</code> via nó <b>Set/Code</b> do n8n.
+      </div>
+    </section>
+
+    <script>
+      const N8N_INJECTED_WEB_URL = '__BARBUTTI_WEB_URL__';
+      const routes = [
+        ['Login', '/login'], ['Primeiro acesso', '/primeiro-acesso'], ['Dashboard', '/dashboard'], ['Agenda', '/agenda'],
+        ['Agendamentos', '/agendamentos'], ['Clientes', '/clientes'], ['Barbeiros', '/barbeiros'], ['Funcionários', '/funcionarios'],
+        ['Serviços', '/servicos'], ['Conversas', '/conversas'], ['Configurações', '/configuracoes'], ['Usuários', '/usuarios'],
+        ['Agendamento público', '/agendar']
+      ];
+
+      const baseUrlInput = document.getElementById('baseUrl');
+      const saveButton = document.getElementById('saveBaseUrl');
+      const quickLocal = document.getElementById('quickLocal');
+      const quickCurrent = document.getElementById('quickCurrent');
+      const linksContainer = document.getElementById('linksContainer');
+      const statusText = document.getElementById('statusText');
+
+      function normalizeBase(url) { return (url || '').trim().replace(/\/$/, ''); }
+      function getParamWebUrl() {
+        const q = new URLSearchParams(window.location.search).get('web_url');
+        return normalizeBase(q);
+      }
+      function getInjectedWebUrl() {
+        if (N8N_INJECTED_WEB_URL && !N8N_INJECTED_WEB_URL.includes('__BARBUTTI_WEB_URL__')) {
+          return normalizeBase(N8N_INJECTED_WEB_URL);
+        }
+        return '';
+      }
+
+      function detectDefaultBaseUrl() {
+        const byQuery = getParamWebUrl();
+        if (byQuery) return byQuery;
+
+        const byInjected = getInjectedWebUrl();
+        if (byInjected) return byInjected;
+
+        const persisted = localStorage.getItem('barbutti:webBaseUrl');
+        if (persisted) return normalizeBase(persisted);
+
+        const isWebhook = window.location.pathname.includes('/webhook/');
+        if (isWebhook) return 'http://localhost:3000';
+
+        if (window.location.protocol.startsWith('http')) {
+          if (window.location.port === '3001') return `${window.location.protocol}//${window.location.hostname}:3000`;
+          return `${window.location.protocol}//${window.location.host}`;
+        }
+
+        return 'http://localhost:3000';
+      }
+
+      function renderLinks() {
+        const base = normalizeBase(baseUrlInput.value) || 'http://localhost:3000';
+        statusText.textContent = `Base ativa: ${base}`;
+        linksContainer.innerHTML = routes.map(([label, path]) => {
+          const href = `${base}${path}`;
+          return `<a class="link-card" href="${href}" target="_blank" rel="noopener noreferrer"><div class="link-title">${label}</div><div class="link-path">${href}</div></a>`;
+        }).join('');
+      }
+
+      function persistAndRender(base) {
+        const normalized = normalizeBase(base) || 'http://localhost:3000';
+        localStorage.setItem('barbutti:webBaseUrl', normalized);
+        baseUrlInput.value = normalized;
+        renderLinks();
+      }
+
+      persistAndRender(detectDefaultBaseUrl());
+      saveButton.addEventListener('click', () => persistAndRender(baseUrlInput.value));
+      quickLocal.addEventListener('click', () => persistAndRender('http://localhost:3000'));
+      quickCurrent.addEventListener('click', () => persistAndRender(`${window.location.protocol}//${window.location.host}`));
+      baseUrlInput.addEventListener('change', renderLinks);
+    </script>
+  </body>
+</html>

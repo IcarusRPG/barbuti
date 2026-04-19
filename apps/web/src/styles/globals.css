@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-primary: 224 215 195;
+  --brand-secondary: 255 255 255;
+  --brand-accent: 149 117 62;
+}
+
+body {
+  background: radial-gradient(circle at top, rgb(var(--brand-primary) / 0.1), #050505 45%);
+  color: #fff;
+}
