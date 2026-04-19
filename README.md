@@ -83,3 +83,8 @@ Quando o `index.html` for retornado por webhook (ex.: domínio do n8n), informe 
 ```
 
 Ou injete no HTML o placeholder `__BARBUTTI_WEB_URL__` com a URL final do frontend no fluxo do n8n.
+
+
+### Página para GitHub Pages
+
+Foi adicionado `index.html` na raiz do repositório para servir como página estática de entrada (mock) quando publicado no Pages.
