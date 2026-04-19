@@ -73,3 +73,13 @@ packages/
 - Conectar telas frontend aos endpoints reais via fetch client.
 - Adicionar realtime em conversas com WebSocket (gateway NestJS).
 - Finalizar fluxos de CRUD completos com paginação e validações avançadas.
+
+### Uso do HTML via n8n webhook
+
+Quando o `index.html` for retornado por webhook (ex.: domínio do n8n), informe a URL real do frontend com o parâmetro:
+
+```txt
+...?web_url=https://SEU-FRONTEND
+```
+
+Ou injete no HTML o placeholder `__BARBUTTI_WEB_URL__` com a URL final do frontend no fluxo do n8n.
