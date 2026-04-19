@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Barbutti Barbearia • Demo Pages</title>
+    <meta name="description" content="Página principal mockada para publicação em Pages." />
+    <style>
+      :root {
+        --bg: #050505;
+        --card: #111214;
+        --line: #2a2d33;
+        --text: #f3f3f3;
+        --muted: #a8adb7;
+        --primary: #e0d7c3;
+        --accent: #95753e;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top, rgba(224,215,195,.16), transparent 35%),
+          radial-gradient(circle at bottom right, rgba(149,117,62,.2), transparent 40%),
+          var(--bg);
+      }
+      .container { width: min(1100px, 95vw); margin: 0 auto; }
+      header {
+        padding: 36px 0 24px;
+        display: grid;
+        grid-template-columns: 130px 1fr;
+        gap: 18px;
+        align-items: center;
+      }
+      .logo { width: 130px; height:130px; border-radius: 20px; object-fit: cover; border:2px solid #4a4132; }
+      h1 { margin: 0; font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--primary); }
+      p { margin: 8px 0 0; color: var(--muted); line-height: 1.5; }
+      .bar { display:flex; flex-wrap:wrap; gap:10px; margin: 16px 0 4px; }
+      .btn {
+        text-decoration: none; color:#fff; background: var(--accent);
+        padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size:.9rem;
+      }
+      .btn.secondary { background:#17191d; border:1px solid var(--line); color: var(--primary); }
+      section { margin: 24px 0; }
+      .grid {
+        display:grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+      }
+      .card {
+        background: var(--card);
+        border:1px solid var(--line);
+        border-radius: 14px;
+        padding: 16px;
+      }
+      .card h3 { margin:0; color: var(--primary); }
+      .card small { color: var(--muted); display:block; margin-top:6px; }
+      .route {
+        margin-top: 10px;
+        display:inline-block;
+        font-size:.85rem;
+        color:#d5dae4;
+        background:#0d0f12;
+        border:1px solid var(--line);
+        border-radius:8px;
+        padding: 4px 8px;
+        text-decoration:none;
+      }
+      footer { color: var(--muted); padding: 20px 0 40px; font-size:.9rem; }
+      @media (max-width: 700px){
+        header { grid-template-columns: 1fr; }
+        .logo { width: 110px; height:110px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <img class="logo" src="https://res.cloudinary.com/dk6okgt0a/image/upload/v1776542449/WhatsApp_Image_2026-04-17_at_21.09.05_sgbuvm.jpg" alt="Logo Barbutti" />
+        <div>
+          <h1>Barbutti Barbearia • Portal Mock (Pages)</h1>
+          <p>
+            Página estática para publicar no Pages com navegação mockada das áreas do sistema.
+            Ideal para apresentação inicial enquanto frontend e backend completos evoluem.
+          </p>
+          <div class="bar">
+            <a class="btn" href="#modulos">Ver módulos</a>
+            <a class="btn secondary" href="#kpis">Ver KPIs mockados</a>
+            <a class="btn secondary" href="./apps/web/public/index.html">Portal HTML Webhook</a>
+          </div>
+        </div>
+      </header>
+
+      <section id="kpis">
+        <div class="grid">
+          <article class="card"><h3>Agendamentos hoje</h3><small>24 atendimentos previstos</small></article>
+          <article class="card"><h3>Taxa de ocupação</h3><small>87% na semana</small></article>
+          <article class="card"><h3>No-show</h3><small>3% no mês</small></article>
+          <article class="card"><h3>Faturamento</h3><small>R$ 18.950,00 (mock)</small></article>
+        </div>
+      </section>
+
+      <section id="modulos">
+        <div class="grid">
+          <article class="card"><h3>Login</h3><small>Entrada de usuários do painel.</small><a class="route" href="./apps/web/public/index.html">Abrir</a></article>
+          <article class="card"><h3>Dashboard</h3><small>Resumo executivo e visão rápida.</small><a class="route" href="./apps/web/public/index.html">Abrir</a></article>
+          <article class="card"><h3>Agenda</h3><small>Dia/semana/mês com filtros.</small><a class="route" href="./apps/web/public/index.html">Abrir</a></article>
+          <article class="card"><h3>Clientes</h3><small>Histórico e recorrência.</small><a class="route" href="./apps/web/public/index.html">Abrir</a></article>
+          <article class="card"><h3>Barbeiros</h3><small>Escalas, especialidades e serviços.</small><a class="route" href="./apps/web/public/index.html">Abrir</a></article>
+          <article class="card"><h3>Serviços</h3><small>Duração, preço e status.</small><a class="route" href="./apps/web/public/index.html">Abrir</a></article>
+          <article class="card"><h3>Conversas</h3><small>WhatsApp bot e histórico.</small><a class="route" href="./apps/web/public/index.html">Abrir</a></article>
+          <article class="card"><h3>Configurações</h3><small>Marca e cores RGB.</small><a class="route" href="./apps/web/public/index.html">Abrir</a></article>
+        </div>
+      </section>
+
+      <footer>
+        Dica para Pages: mantenha este arquivo na raiz do branch publicado (ex.: <code>main</code>) para servir como entrada estática.
+      </footer>
+    </main>
+  </body>
+</html>
