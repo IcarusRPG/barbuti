@@ -24,7 +24,7 @@ packages/
 - Painel frontend com telas mínimas (login, primeiro acesso, dashboard, agenda, agendamentos, clientes, barbeiros, funcionários, serviços, conversas, configurações, usuários e agendamento público).
 - Tokens de tema com RGB para personalização da marca.
 
-- `apps/web/public/index.html` criado como arquivo HTML de entrada estático/fallback com identidade visual da Barbutti.
+- `apps/web/public/index.html` criado como portal HTML de entrada com logo maior, layout premium e links para todas as rotas principais do sistema (com URL base configurável).
 
 ## Stack
 
@@ -53,6 +53,7 @@ packages/
 
 - Web: `http://localhost:3000`
 - API: `http://localhost:3001`
+- A API possui redirecionamento de `/`, `/login` e `/agendar` para o frontend (`WEB_URL`) para evitar erro `Cannot GET /login` quando o acesso for feito na porta da API.
 
 ## Seed inicial
 

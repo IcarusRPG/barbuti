@@ -14,8 +14,10 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { FinanceModule } from './finance/finance.module';
 import { IntegrationsModule } from './integrations/integrations.module';
 import { AuditModule } from './audit/audit.module';
+import { AppController } from './app.controller';
 
 @Module({
+  controllers: [AppController],
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     PrismaModule,

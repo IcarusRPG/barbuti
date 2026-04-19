@@ -3,55 +3,249 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Barbutti Barbearia</title>
-    <meta name="description" content="Plataforma Barbutti Barbearia" />
+    <title>Barbutti Barbearia • Portal de Acesso</title>
+    <meta name="description" content="Portal de entrada para todas as áreas do sistema Barbutti Barbearia" />
     <style>
       :root {
-        --brand-primary: rgb(224, 215, 195);
-        --brand-accent: rgb(149, 117, 62);
+        --bg: #050505;
+        --card: rgba(16, 16, 18, 0.92);
+        --line: rgba(255, 255, 255, 0.14);
+        --text: #ffffff;
+        --muted: #b8b8b8;
+        --primary: rgb(224, 215, 195);
+        --accent: rgb(149, 117, 62);
       }
+
       * { box-sizing: border-box; }
+
       body {
         margin: 0;
         min-height: 100vh;
         font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-        background: radial-gradient(circle at top, rgba(224, 215, 195, 0.18), #050505 45%);
-        color: #fff;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top, rgba(224, 215, 195, 0.2), transparent 40%),
+          radial-gradient(circle at bottom right, rgba(149, 117, 62, 0.25), transparent 30%),
+          var(--bg);
         display: grid;
         place-items: center;
-      }
-      .card {
-        width: min(92vw, 420px);
-        background: rgba(18, 18, 20, 0.95);
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        border-radius: 24px;
         padding: 24px;
-        text-align: center;
       }
-      img {
-        width: 96px;
-        height: 96px;
-        border-radius: 999px;
+
+      .portal {
+        width: min(98vw, 1100px);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background: linear-gradient(180deg, rgba(20, 20, 22, 0.95), rgba(8, 8, 10, 0.95));
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+      }
+
+      .header {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: 1fr;
+        padding: 28px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      @media (min-width: 900px) {
+        .header {
+          grid-template-columns: 240px 1fr;
+          align-items: center;
+          padding: 32px;
+        }
+      }
+
+      .logo {
+        width: min(100%, 220px);
+        aspect-ratio: 1;
         object-fit: cover;
+        border-radius: 24px;
+        border: 2px solid rgba(224, 215, 195, 0.35);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
       }
-      a {
-        display: inline-block;
+
+      h1 {
+        margin: 0;
+        font-size: clamp(1.7rem, 3.3vw, 2.7rem);
+        color: var(--primary);
+      }
+
+      p {
+        margin: 10px 0 0;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .base-url {
         margin-top: 16px;
-        background: var(--brand-accent);
-        color: #fff;
-        text-decoration: none;
-        font-weight: 600;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      input {
+        flex: 1;
+        min-width: 260px;
+        background: #0f0f11;
+        border: 1px solid var(--line);
         border-radius: 12px;
-        padding: 12px 18px;
+        color: #fff;
+        padding: 12px 14px;
+      }
+
+      button {
+        background: var(--accent);
+        color: #fff;
+        border: 0;
+        border-radius: 12px;
+        padding: 12px 16px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .links {
+        padding: 26px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+      }
+
+      .link-card {
+        display: block;
+        text-decoration: none;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 16px;
+        color: #fff;
+        background: var(--card);
+        transition: transform 0.2s ease, border-color 0.2s ease;
+      }
+
+      .link-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(224, 215, 195, 0.45);
+      }
+
+      .link-title {
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .link-path {
+        margin-top: 8px;
+        font-size: 0.88rem;
+        color: var(--muted);
+      }
+
+      .hint {
+        padding: 0 26px 24px;
+        font-size: 0.9rem;
+        color: #d4d4d4;
+      }
+
+      code {
+        background: #121216;
+        border: 1px solid #2f2f34;
+        border-radius: 8px;
+        padding: 2px 6px;
       }
     </style>
   </head>
   <body>
-    <section class="card">
-      <img src="https://res.cloudinary.com/dk6okgt0a/image/upload/v1776542449/WhatsApp_Image_2026-04-17_at_21.09.05_sgbuvm.jpg" alt="Barbutti Barbearia" />
-      <h1>Barbutti Barbearia</h1>
-      <p>Sistema de Agendamento.</p>
-      <a href="/login">Acessar sistema</a>
+    <section class="portal">
+      <header class="header">
+        <img
+          class="logo"
+          src="https://res.cloudinary.com/dk6okgt0a/image/upload/v1776542449/WhatsApp_Image_2026-04-17_at_21.09.05_sgbuvm.jpg"
+          alt="Logo Barbutti Barbearia"
+        />
+        <div>
+          <h1>Portal de Acesso • Barbutti Barbearia</h1>
+          <p>
+            Esta página HTML agora funciona como uma central para acessar qualquer área do sistema.
+            Defina a URL base do frontend (ex.: <code>http://localhost:3000</code>) e clique no módulo desejado.
+          </p>
+          <div class="base-url">
+            <input id="baseUrl" type="text" placeholder="URL base do frontend" />
+            <button id="saveBaseUrl" type="button">Salvar URL</button>
+          </div>
+        </div>
+      </header>
+
+      <nav class="links" id="linksContainer"></nav>
+
+      <div class="hint">
+        Dica: se você abriu esta página na API (<code>:3001</code>), mantenha a URL base como
+        <code>http://localhost:3000</code> para acessar as telas do frontend.
+      </div>
     </section>
+
+    <script>
+      const routes = [
+        ['Login', '/login'],
+        ['Primeiro acesso', '/primeiro-acesso'],
+        ['Dashboard', '/dashboard'],
+        ['Agenda', '/agenda'],
+        ['Agendamentos', '/agendamentos'],
+        ['Clientes', '/clientes'],
+        ['Barbeiros', '/barbeiros'],
+        ['Funcionários', '/funcionarios'],
+        ['Serviços', '/servicos'],
+        ['Conversas', '/conversas'],
+        ['Configurações', '/configuracoes'],
+        ['Usuários', '/usuarios'],
+        ['Agendamento público', '/agendar']
+      ];
+
+      const baseUrlInput = document.getElementById('baseUrl');
+      const saveButton = document.getElementById('saveBaseUrl');
+      const linksContainer = document.getElementById('linksContainer');
+
+      function normalizeBase(url) {
+        return (url || '').trim().replace(/\/$/, '');
+      }
+
+      function detectDefaultBaseUrl() {
+        const persisted = localStorage.getItem('barbutti:webBaseUrl');
+        if (persisted) return normalizeBase(persisted);
+
+        if (window.location.protocol.startsWith('http')) {
+          if (window.location.port === '3001') return `${window.location.protocol}//${window.location.hostname}:3000`;
+          return `${window.location.protocol}//${window.location.host}`;
+        }
+
+        return 'http://localhost:3000';
+      }
+
+      function renderLinks() {
+        const base = normalizeBase(baseUrlInput.value) || 'http://localhost:3000';
+        linksContainer.innerHTML = routes
+          .map(([label, path]) => {
+            const href = `${base}${path}`;
+            return `
+              <a class="link-card" href="${href}">
+                <div class="link-title">${label}</div>
+                <div class="link-path">${href}</div>
+              </a>
+            `;
+          })
+          .join('');
+      }
+
+      const defaultBase = detectDefaultBaseUrl();
+      baseUrlInput.value = defaultBase;
+      renderLinks();
+
+      saveButton.addEventListener('click', () => {
+        const base = normalizeBase(baseUrlInput.value) || 'http://localhost:3000';
+        localStorage.setItem('barbutti:webBaseUrl', base);
+        baseUrlInput.value = base;
+        renderLinks();
+      });
+
+      baseUrlInput.addEventListener('change', renderLinks);
+    </script>
   </body>
 </html>
