@@ -53,6 +53,7 @@ packages/
 
 - Web: `http://localhost:3000`
 - API: `http://localhost:3001`
+- A API possui redirecionamento de `/`, `/login` e `/agendar` para o frontend (`WEB_URL`) para evitar erro `Cannot GET /login` quando o acesso for feito na porta da API.
 
 ## Seed inicial
 
